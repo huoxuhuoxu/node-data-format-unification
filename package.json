@@ -1,0 +1,27 @@
+{
+  "name": "node-data-format-unification",
+  "version": "1.0.1",
+  "description": "统一application/json,application/x-www-form-urlencoded,multipart/form-data数据",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "json",
+    "get",
+    "post",
+    "from-data",
+    "body-parser"
+  ],
+  "author": "huoxu_huoxu",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "express": "^4.16.1",
+    "mocha": "^3.5.3",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2"
+  }
+}
