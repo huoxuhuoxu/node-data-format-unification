@@ -4,7 +4,7 @@
  *		1. application/json
  *		2. application/x-www-form-urlencoded
  *		3. multipart/form-data
- *	
+ *
  *	result:
  *		req.body
 */
@@ -14,7 +14,7 @@ const unification_format_data = async function(req, res, next){
 	if(method.toLowerCase() !== 'get'){
 		let ContentType = req.headers['content-type'];
 		if(/multipart\/form\-data/.test(ContentType)){
-			let arr = [];		
+			let arr = [];
 			req.body = await new Promise(resolve => {
 				req.on('data', chunk => {
 					arr.push(chunk);
@@ -24,14 +24,25 @@ const unification_format_data = async function(req, res, next){
 					let aFormData = s.split('\r\n');
 					if(aFormData.length > 1){
 						let obj = {};
-						for(let i=0; i<aFormData.length - 4; i+=4){
-							let sKey = aFormData[i+1];
-							let sValue = aFormData[i+3];
-							sKey = sKey.match(/name=\"(.+)\"$/)[1];
-							obj[sKey] = sValue;
-						}
+						do{
+							let value = aFormData[1];
+							let arr = value.match(/name=\"(.+)\";\sfilename=\"(.+)\"$/);
+							if(arr && arr.length){
+								obj[arr[1]] = aFormData[4];
+								aFormData.splice(0, 5);
+								continue;
+							}else{
+								arr = value.match(/name=\"(.+)\"$/);
+								if(arr && arr.length){
+									obj[arr[1]] = aFormData[3];
+									aFormData.splice(0, 4);
+									continue;
+								}
+							}
+							aFormData.splice(0, 4);
+						}while(aFormData.length);
+					
 						resolve(obj);
-						return ;
 					}
 					resolve({});
 				});

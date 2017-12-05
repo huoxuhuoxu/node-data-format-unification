@@ -1,6 +1,6 @@
 {
   "name": "node-data-format-unification",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "统一application/json,application/x-www-form-urlencoded,multipart/form-data数据",
   "main": "index.js",
   "scripts": {
